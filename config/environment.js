@@ -19,6 +19,13 @@ class EnvironmentConfig {
       return 'development';
     }
     
+    // Vercel production environment
+    if (hostname.includes('.vercel.app') || 
+        hostname.includes('vercel.') ||
+        window.location.origin.includes('vercel')) {
+      return 'vercel';
+    }
+    
     // Production environment
     return 'production';
   }
@@ -26,6 +33,8 @@ class EnvironmentConfig {
   loadConfiguration() {
     if (this.environment === 'development') {
       return this.getDevConfig();
+    } else if (this.environment === 'vercel') {
+      return this.getVercelConfig();
     } else {
       return this.getProdConfig();
     }
@@ -47,6 +56,28 @@ class EnvironmentConfig {
       supabaseUrl: window.SUPABASE_URL || 'https://wasdkdppgsepanugzakn.supabase.co',
       supabaseAnonKey: window.SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indhc2RrZHBwZ3NlcGFudWd6YWtuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc0NjcyNTgsImV4cCI6MjA3MzA0MzI1OH0.53THlqHvjsMzBTy2JF6l7lushbb0VpBYCJFygl7VlnM',
       environment: 'production'
+    };
+  }
+
+  getVercelConfig() {
+    // For Vercel deployment - environment variables are available at runtime
+    // Check multiple possible sources for environment variables
+    const supabaseUrl = process?.env?.SUPABASE_URL || 
+                       window?.VITE_SUPABASE_URL || 
+                       window?.NEXT_PUBLIC_SUPABASE_URL ||
+                       window?.REACT_APP_SUPABASE_URL ||
+                       'https://wasdkdppgsepanugzakn.supabase.co';
+    
+    const supabaseAnonKey = process?.env?.SUPABASE_ANON_KEY ||
+                           window?.VITE_SUPABASE_ANON_KEY ||
+                           window?.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+                           window?.REACT_APP_SUPABASE_ANON_KEY ||
+                           'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indhc2RrZHBwZ3NlcGFudWd6YWtuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc0NjcyNTgsImV4cCI6MjA3MzA0MzI1OH0.53THlqHvjsMzBTy2JF6l7lushbb0VpBYCJFygl7VlnM';
+    
+    return {
+      supabaseUrl,
+      supabaseAnonKey,
+      environment: 'vercel'
     };
   }
 
