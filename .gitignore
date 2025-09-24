@@ -1,0 +1,95 @@
+# Security - Never commit sensitive configuration files
+config/config.prod.js
+config/config.dev.js
+config/config.local.js
+config/environment.js.backup
+*.env
+.env
+.env.local
+.env.production
+.env.development
+
+# Supabase local development
+supabase/.env
+supabase/.env.local
+
+# Dependencies
+node_modules/
+jspm_packages/
+
+# NPM
+.npm
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build outputs
+dist/
+build/
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov
+
+# Optional eslint cache
+.eslintcache
+
+# Temporary folders
+tmp/
+temp/
+
+# Operating System
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# IDE and Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+logs/
+
+# Backup files
+*.bak
+*.backup
+*.old
+
+# Demo and test files
+*demo*
+*test*
+*example*
+sidebar-demo.html
+sidebar-test.html
+websekspedisi.html
+
+# Documentation (consolidated into README.md)
+*SETUP*.md
+*GUIDE*.md
+*SECURITY*.md
+*SOLUTION*.md
+TAILWIND_SETUP.md
+SUPABASE_SETUP.md
+FORGOT_PASSWORD_GUIDE.md
+
+# Generated CSS (should be committed but listed for reference)
+# assets/css/output.css
+
+# Local configuration overrides
+config/environment.local.js
+config/config.override.js

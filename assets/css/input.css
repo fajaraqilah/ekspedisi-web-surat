@@ -1,0 +1,141 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom Theme Colors */
+:root { 
+  --brand: #1DC82B; 
+}
+
+.brand-bg { 
+  background-color: var(--brand); 
+}
+
+.brand-text { 
+  color: var(--brand); 
+}
+
+.brand-border { 
+  border-color: var(--brand); 
+}
+
+/* Custom Components - Enhanced floating label styles for login forms */
+@layer components {
+  /* Enhanced floating label styles */
+  #login-password:focus + label,
+  #login-password:not(:placeholder-shown) + label,
+  #login-username:focus + label,
+  #login-username:not(:placeholder-shown) + label,
+  #register-email:focus + label,
+  #register-email:not(:placeholder-shown) + label,
+  #register-password:focus + label,
+  #register-password:not(:placeholder-shown) + label {
+    z-index: 10;
+    background-color: white;
+    padding: 0 8px;
+    margin-left: -8px;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Enhanced input focus effects */
+  .form-input {
+    transition: all 0.3s ease;
+  }
+  
+  .form-input:focus {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 25px rgba(34, 197, 94, 0.15);
+  }
+  
+  /* Register form specific focus effect */
+  #register-card .form-input:focus {
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15);
+  }
+  
+  /* Hide browser's default password reveal icon */
+  input[type="password"]::-ms-reveal,
+  input[type="password"]::-ms-clear {
+    display: none;
+  }
+  
+  input[type="password"]::-webkit-credentials-auto-fill-button,
+  input[type="password"]::-webkit-strong-password-auto-fill-button {
+    display: none !important;
+  }
+  
+  /* Toast notification styles */
+  .toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 16px 24px;
+    border-radius: 12px;
+    color: white;
+    font-weight: 500;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    transform: translateX(120%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(10px);
+  }
+  
+  .toast.show {
+    transform: translateX(0);
+  }
+  
+  .toast.error {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+  }
+  
+  .toast.success {
+    background: linear-gradient(135deg, #10b981, #059669);
+  }
+  
+  /* Button hover animation */
+  .login-btn {
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .login-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(29, 200, 43, 0.3);
+  }
+  
+  /* Register button specific hover effect */
+  #register-card .login-btn:hover {
+    box-shadow: 0 12px 30px rgba(59, 130, 246, 0.3);
+  }
+  
+  .login-btn:active {
+    transform: translateY(0);
+  }
+  
+  /* Button loading animation */
+  .login-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+  }
+  
+  /* Ripple effect for button */
+  .login-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+  }
+  
+  .login-btn:active::before {
+    width: 300px;
+    height: 300px;
+  }
+}

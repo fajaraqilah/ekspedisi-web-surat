@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DSPI Dashboard - Ekspedisi Web</title>
+  <!-- Tailwind CSS Compiled -->
+  <link rel="stylesheet" href="assets/css/output.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="shortcut icon" type="image/png" href="https://bpd.ptpn1.co.id/_nuxt/img/logo-ptpn1.2.5cb8803.png">
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Left side - Logo and Navigation -->
+                <div class="flex items-center space-x-4">
+                    <!-- Back Button -->
+                    <a href="index.html" class="flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors duration-200">
+                        <i class="fas fa-arrow-left text-lg"></i>
+                        <span class="font-medium">Back</span>
+                    </a>
+                    
+                    <div class="h-6 w-px bg-gray-300"></div>
+                    
+                    <!-- Logo -->
+                    <div class="flex items-center space-x-3">
+                        <div class="w-8 h-8 bg-green-600 rounded-lg flex items-center justify-center">
+                           <span class="bg-green-600 text-white text-xs font-bold rounded">SPI</span>
+                        </div>
+                        <h1 class="text-xl font-bold text-gray-900">DSPI Dashboard</h1>
+                    </div>
+                </div>
+
+                <!-- Right side - User info -->
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
+                            <i class="fas fa-user text-gray-600 text-sm"></i>
+                        </div>
+                        <span class="text-sm font-medium text-gray-700">User</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Page Title -->
+        <div class="mb-6">
+            <h2 class="text-2xl font-bold text-gray-900 mb-2">DSPI Analytics Dashboard</h2>
+            <p class="text-gray-600">Digital Signature Performance Insights and Analytics</p>
+        </div>
+
+        <!-- Dashboard Container -->
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+            <!-- Dashboard Header -->
+            <div class="bg-gray-50 px-6 py-4 border-b border-gray-200">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-6 h-6 bg-blue-600 rounded flex items-center justify-center">
+                            <i class="fas fa-chart-line text-white text-xs"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900">Real-time Analytics</h3>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                <button onclick="document.getElementById('looker-dashboard').src = document.getElementById('looker-dashboard').src" 
+                        class="px-4 py-2 text-sm font-medium text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors duration-200 flex items-center space-x-2">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                  </svg>
+                  <span>Refresh Dashboard</span>
+                </button>
+                </div>
+            </div>
+
+            <!-- Looker Studio Dashboard -->
+            <div class="p-6">
+                <div class="relative w-full">
+                    <!-- Loading indicator -->
+                    <div id="loading-indicator" class="absolute inset-0 flex items-center justify-center bg-gray-50 rounded-lg">
+                        <div class="flex items-center space-x-3">
+                            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+                            <span class="text-gray-600">Loading dashboard...</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Dashboard iframe -->
+                    <iframe 
+                        id="looker-dashboard"
+                        class="w-full border-0 rounded-lg shadow-sm"
+                        style="height: 1000px; min-height: 600px;"
+                        src="https://lookerstudio.google.com/embed/reporting/320d872e-0202-4506-82aa-b1cbba27a2bf/page/p_jr8voxj9ud" 
+                        frameborder="0" 
+                        allowfullscreen 
+                        sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
+                        onload="hideLoadingIndicator()"
+                    ></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Info -->
+        <div class="mt-6 bg-blue-50 border border-blue-200 rounded-lg p-4">
+            <div class="flex items-start space-x-3">
+                <div class="w-5 h-5 bg-blue-600 rounded-full flex items-center justify-center mt-0.5">
+                    <i class="fas fa-info text-white text-xs"></i>
+                </div>
+                <div>
+                    <h4 class="text-sm font-semibold text-blue-900 mb-1">Dashboard Information</h4>
+                    <p class="text-sm text-blue-800">This dashboard provides real-time insights into digital signature performance, usage patterns, and system analytics. Data is updated automatically to ensure you have the latest information.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-2 text-sm text-gray-500">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Powered by Google Looker Studio</span>
+                </div>
+                <div class="text-sm text-gray-500">
+                    © 2025 Ekspedisi Web. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function hideLoadingIndicator() {
+            const loadingIndicator = document.getElementById('loading-indicator');
+            if (loadingIndicator) {
+                loadingIndicator.style.display = 'none';
+            }
+        }
+
+        // Responsive iframe height adjustment
+        function adjustIframeHeight() {
+            const iframe = document.getElementById('looker-dashboard');
+            if (window.innerWidth < 768) {
+                iframe.style.height = '500px';
+            } else {
+                iframe.style.height = '600px';
+            }
+        }
+
+        // Initial adjustment and event listener
+        adjustIframeHeight();
+        window.addEventListener('resize', adjustIframeHeight);
+    </script>
+</body>
+</html>
