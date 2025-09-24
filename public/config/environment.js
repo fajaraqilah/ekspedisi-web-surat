@@ -60,15 +60,15 @@ class EnvironmentConfig {
   }
 
   getVercelConfig() {
-    // For Vercel deployment - environment variables are available at runtime
+    // For Vercel deployment - environment variables are injected at build time
     // Check multiple possible sources for environment variables
-    const supabaseUrl = process?.env?.SUPABASE_URL || 
+    const supabaseUrl = window?.SUPABASE_URL || 
                        window?.VITE_SUPABASE_URL || 
                        window?.NEXT_PUBLIC_SUPABASE_URL ||
                        window?.REACT_APP_SUPABASE_URL ||
                        'https://wasdkdppgsepanugzakn.supabase.co';
     
-    const supabaseAnonKey = process?.env?.SUPABASE_ANON_KEY ||
+    const supabaseAnonKey = window?.SUPABASE_ANON_KEY ||
                            window?.VITE_SUPABASE_ANON_KEY ||
                            window?.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
                            window?.REACT_APP_SUPABASE_ANON_KEY ||
