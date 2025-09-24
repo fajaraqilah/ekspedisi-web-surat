@@ -3,21 +3,25 @@
 ## 🎯 Project Overview
 Your **ekspedisi-web** project is now fully configured for Vercel deployment as a static website with Supabase integration.
 
-## 📁 Current Project Structure (No Changes Required!)
+## 📁 Project Structure (Public Folder)
 ```
 ekspedisi-web/
-├── index.html              ✅ Root page (/ route)
-├── admin.html              ✅ Admin panel (/admin route)
-├── dashboard.html          ✅ Dashboard (/dashboard route)
-├── login.html              ✅ Login page (/login route)
-├── reset-password.html     ✅ Password reset (/reset-password route)
-├── user-dspi-dashboard.html ✅ DSPI Dashboard (/user-dspi-dashboard route)
-├── dspi-dashboard.html     ✅ DSPI Admin (/dspi-dashboard route)
-├── 404.html               ✅ Custom 404 page
-├── assets/                ✅ CSS, JS, and static files
-├── config/                ✅ Configuration files
+├── public/                 🆕 Public folder (Vercel output directory)
+│   ├── index.html          ✅ Root page (/ route)
+│   ├── admin.html          ✅ Admin panel (/admin route)
+│   ├── dashboard.html      ✅ Dashboard (/dashboard route)
+│   ├── login.html          ✅ Login page (/login route)
+│   ├── reset-password.html ✅ Password reset (/reset-password route)
+│   ├── user-dspi-dashboard.html ✅ DSPI Dashboard (/user-dspi-dashboard route)
+│   ├── dspi-dashboard.html ✅ DSPI Admin (/dspi-dashboard route)
+│   ├── 404.html           ✅ Custom 404 page
+│   ├── assets/            ✅ CSS, JS, and static files
+│   ├── config/            ✅ Configuration files
+│   └── frontend/          ✅ Frontend JS files
+├── scripts/               ✅ Build scripts
 ├── vercel.json            🆕 Vercel deployment config
-└── scripts/vercel-build.js 🆕 Build script
+├── package.json           ✅ Updated for public folder
+└── tailwind.config.js     ✅ Updated for public folder
 ```
 
 ## 🔧 Key Files Added/Modified

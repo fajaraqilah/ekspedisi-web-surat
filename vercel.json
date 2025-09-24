@@ -1,13 +1,13 @@
 {
   "version": 2,
   "framework": null,
-  "public": false,
+  "public": true,
   "builds": [
     {
       "src": "package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "."
+        "distDir": "public"
       }
     }
   ],
@@ -39,18 +39,6 @@
     {
       "src": "/dspi-dashboard",
       "dest": "/dspi-dashboard.html"
-    },
-    {
-      "src": "/assets/(.*)",
-      "dest": "/assets/$1"
-    },
-    {
-      "src": "/config/(.*)",
-      "dest": "/config/$1"
-    },
-    {
-      "src": "/frontend/(.*)",
-      "dest": "/frontend/$1"
     },
     {
       "handle": "filesystem"

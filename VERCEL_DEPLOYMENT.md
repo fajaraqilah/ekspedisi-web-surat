@@ -5,26 +5,31 @@ This project is now configured for seamless deployment to Vercel as a static web
 ## Configuration Overview
 
 ### 1. Project Structure
-Your project maintains its current structure - no files need to be moved manually:
+Your project now uses a `public/` folder structure that Vercel recognizes:
 ```
 ekspedisi-web/
-├── index.html              # Root page (automatically served at /)
-├── admin.html              # Available at /admin
-├── dashboard.html          # Available at /dashboard
-├── login.html              # Available at /login
-├── reset-password.html     # Available at /reset-password
-├── user-dspi-dashboard.html # Available at /user-dspi-dashboard
-├── dspi-dashboard.html     # Available at /dspi-dashboard
-├── 404.html                # Custom 404 page
-├── assets/                 # Static assets (CSS, JS)
-├── config/                 # Configuration files
-└── vercel.json             # Vercel deployment configuration
+├── public/                 # Vercel output directory
+│   ├── index.html          # Root page (automatically served at /)
+│   ├── admin.html          # Available at /admin
+│   ├── dashboard.html      # Available at /dashboard
+│   ├── login.html          # Available at /login
+│   ├── reset-password.html # Available at /reset-password
+│   ├── user-dspi-dashboard.html # Available at /user-dspi-dashboard
+│   ├── dspi-dashboard.html # Available at /dspi-dashboard
+│   ├── 404.html           # Custom 404 page
+│   ├── assets/            # Static assets (CSS, JS)
+│   ├── config/            # Configuration files
+│   └── frontend/          # Frontend JS files
+├── scripts/               # Build scripts
+├── vercel.json            # Vercel deployment configuration
+└── package.json           # Updated build scripts
 ```
 
 ### 2. Key Configuration Files
 
 #### `vercel.json`
 - Configures Vercel to treat your project as a static website
+- Sets output directory to `public/` folder
 - Sets up clean URL routing (no .html extensions needed)
 - Adds security headers
 - Enables asset caching

@@ -14,7 +14,7 @@ console.log('🚀 Starting Vercel build process...');
 // Step 1: Build Tailwind CSS
 console.log('📦 Building Tailwind CSS...');
 try {
-  execSync('npx tailwindcss -i ./assets/css/input.css -o ./assets/css/output.css --minify', { 
+  execSync('npx tailwindcss -i ./public/assets/css/input.css -o ./public/assets/css/output.css --minify', { 
     stdio: 'inherit' 
   });
   console.log('✅ Tailwind CSS built successfully');
@@ -42,7 +42,7 @@ try {
 `;
 
   // Write environment script
-  const envPath = path.join(__dirname, '..', 'assets', 'js', 'vercel-env.js');
+  const envPath = path.join(__dirname, '..', 'public', 'assets', 'js', 'vercel-env.js');
   fs.writeFileSync(envPath, envScript);
   console.log('✅ Environment variables processed');
 } catch (error) {
@@ -52,10 +52,10 @@ try {
 // Step 3: Validate build
 console.log('🔍 Validating build...');
 const requiredFiles = [
-  'index.html',
-  'assets/css/output.css',
-  'assets/js/supabase.js',
-  'config/environment.js'
+  'public/index.html',
+  'public/assets/css/output.css',
+  'public/assets/js/supabase.js',
+  'public/config/environment.js'
 ];
 
 let buildValid = true;

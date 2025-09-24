@@ -4,8 +4,8 @@
   "description": "This is a refactored version of the \"Ekspedisi Surat\" application that integrates with Supabase for authentication, database, and storage.",
   "main": "index.js",
   "scripts": {
-    "build-css": "npx tailwindcss -i ./assets/css/input.css -o ./assets/css/output.css --watch",
-    "build-css-prod": "npx tailwindcss -i ./assets/css/input.css -o ./assets/css/output.css --minify",
+    "build-css": "npx tailwindcss -i ./public/assets/css/input.css -o ./public/assets/css/output.css --watch",
+    "build-css-prod": "npx tailwindcss -i ./public/assets/css/input.css -o ./public/assets/css/output.css --minify",
     "dev": "npm run build-css",
     "build": "npm run build-css-prod && echo 'Build completed successfully'",
     "vercel-build": "node scripts/vercel-build.js",

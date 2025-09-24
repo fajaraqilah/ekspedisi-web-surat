@@ -10,8 +10,8 @@ const path = require('path');
 require('dotenv').config({ path: '.env.local' });
 
 // Configuration
-const CONFIG_FILE = path.join(__dirname, '../config/environment.js');
-const BACKUP_FILE = path.join(__dirname, '../config/environment.js.backup');
+const CONFIG_FILE = path.join(__dirname, '../public/config/environment.js');
+const BACKUP_FILE = path.join(__dirname, '../public/config/environment.js.backup');
 
 // Placeholder tokens to replace
 const TOKENS = {

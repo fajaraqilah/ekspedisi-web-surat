@@ -1,7 +1,7 @@
 # Vercel deployment files
 .vercel
 .vercel/
-assets/js/vercel-env.js
+public/assets/js/vercel-env.js
 
 # Security - Never commit sensitive configuration files
 config/config.prod.js
