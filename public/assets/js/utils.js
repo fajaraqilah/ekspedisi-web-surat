@@ -1,6 +1,7 @@
 // ========================= UTILS =========================
 const jenisOptions = [
   'Intern',
+  'LHA',
   'Memorandum',
   'Surat Dinas-Surat Tugas',
   'Surat Dinas - Surat dari Head Office ke Regional',
@@ -12,7 +13,7 @@ const jenisOptions = [
   'Keputusan Direksi'
 ];
 
-const kategoriOptions = ['Surat Elektronik', 'Surat Manual'];
+const kategoriOptions = ['Surat Masuk'];
 
 const tujuanOptions = [
   'Divisi Satuan Pengawasan Intern',
