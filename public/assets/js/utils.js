@@ -13,7 +13,7 @@ const jenisOptions = [
   'Keputusan Direksi'
 ];
 
-const kategoriOptions = ['Surat Elektronik', 'Surat Manual', 'Surat Masuk'];
+const kategoriOptions = ['Surat Elektronik', 'Surat Manual', 'Surat Masuk', 'LHA'];
 
 const tujuanOptions = [
   'Divisi Satuan Pengawasan Intern',
