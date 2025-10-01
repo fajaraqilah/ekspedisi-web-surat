@@ -14,9 +14,20 @@ const jenisOptions = [
   'Rincian Tagihan Tiket.com',
   'Surat Permohonan Cuti',
   'Biaya Rapat & Akomodasi',
+  'Reumbursement Biaya Pengobatan',
+  'Undangan Seminar'
 ];
 
-const kategoriOptions = ['Surat Elektronik', 'Surat Manual', 'Surat Masuk', 'LHA', 'Tagihan', 'Cuti'];
+const kategoriOptions = [
+  'Surat Elektronik', 
+  'Surat Manual', 
+  'Surat Masuk', 
+  'LHA', 
+  'Tagihan', 
+  'Cuti', 
+  'Reimbursement', 
+  'Undangan'
+];
 
 const tujuanOptions = [
   'Divisi Satuan Pengawasan Intern',
