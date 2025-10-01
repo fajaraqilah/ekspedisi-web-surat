@@ -177,7 +177,7 @@
     </div>
 
     <!-- Statistics Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-6 mb-8">
       <!-- Total Surat Card -->
       <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
         <div class="flex items-center">
@@ -208,6 +208,24 @@
           <div class="ml-4">
             <p class="text-sm font-medium text-gray-500">Diterima</p>
             <p class="text-2xl font-bold text-green-600" id="received-letters">-</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Menunggu Card -->
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <div class="w-8 h-8 bg-yellow-100 rounded-lg flex items-center justify-center">
+              <svg class="w-5 h-5 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+          </div>
+          <div class="ml-4">
+            <p class="text-sm font-medium text-gray-500">Menunggu</p>
+            <p class="text-2xl font-bold text-amber-600" id="waiting-letters">-</p>
+
           </div>
         </div>
       </div>
@@ -257,7 +275,9 @@
             <p class="text-sm text-gray-500">Distribusi status surat</p>
           </div>
           <div class="flex items-center space-x-2">
-            <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+            <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+            <span class="text-xs text-gray-500">Menunggu</span>
+            <div class="w-3 h-3 bg-green-500 rounded-full ml-4"></div>
             <span class="text-xs text-gray-500">Diterima</span>
             <div class="w-3 h-3 bg-red-500 rounded-full ml-4"></div>
             <span class="text-xs text-gray-500">Dikembalikan</span>

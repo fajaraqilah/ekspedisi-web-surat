@@ -167,7 +167,7 @@ document.addEventListener('DOMContentLoaded', async function() {
   penerima: fPenerima.value?.trim() || null,
   bukti_ttd_url: null,
   tanggal_diterima: fTanggalDiterima.value || null,
-  status: fStatus.value || "Diterima"
+  status: fStatus.value || "Menunggu"
 };
 
 console.log('Letter data prepared:', letterData);
@@ -411,7 +411,7 @@ if (result.error) {
     fKategori.value = doc.kategori_surat || kategoriOptions[0];
     fTujuan.value = doc.tujuan_surat || tujuanOptions[0];
     fPenerima.value = doc.penerima || '';
-    fStatus.value = doc.status || 'Diterima';
+    fStatus.value = doc.status || 'Menunggu';
     
     // Handle signature preview with signed URL
     if (doc.bukti_ttd_url) {

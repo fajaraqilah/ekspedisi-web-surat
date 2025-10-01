@@ -50,6 +50,9 @@ function updateStatisticCards() {
   // Update received letters
   document.getElementById('received-letters').textContent = dashboardData.receivedLetters.toLocaleString();
   
+  // Update waiting letters
+  document.getElementById('waiting-letters').textContent = dashboardData.waitingLetters.toLocaleString();
+  
   // Update returned letters
   document.getElementById('returned-letters').textContent = dashboardData.returnedLetters.toLocaleString();
   
@@ -74,8 +77,9 @@ async function fetchDashboardData() {
         totalLetters: 0,
         receivedLetters: 0,
         returnedLetters: 0,
+        waitingLetters: 0,
         successRate: 0,
-        statusDistribution: { 'Diterima': 0, 'Dikembalikan': 0 },
+        statusDistribution: { 'Menunggu': 0, 'Diterima': 0, 'Dikembalikan': 0 },
         monthlyTrend: [],
         recentActivity: []
       };
@@ -86,6 +90,7 @@ async function fetchDashboardData() {
     dashboardData.totalLetters = letters.length;
     dashboardData.receivedLetters = letters.filter(letter => letter.status === 'Diterima').length;
     dashboardData.returnedLetters = letters.filter(letter => letter.status === 'Dikembalikan').length;
+    dashboardData.waitingLetters = letters.filter(letter => letter.status === 'Menunggu').length;
     
     // Calculate success rate
     dashboardData.successRate = dashboardData.totalLetters > 0 
@@ -127,8 +132,9 @@ async function fetchDashboardData() {
       totalLetters: 0,
       receivedLetters: 0,
       returnedLetters: 0,
+      waitingLetters: 0,
       successRate: 0,
-      statusDistribution: { 'Diterima': 0, 'Dikembalikan': 0 },
+      statusDistribution: { 'Menunggu': 0, 'Diterima': 0, 'Dikembalikan': 0 },
       monthlyTrend: Array(12).fill(0),
       recentActivity: []
     };
@@ -286,9 +292,20 @@ function updateRecentActivity() {
   }
 
   tbody.innerHTML = dashboardData.recentActivity.map(letter => {
-    const statusClass = letter.status === 'Diterima' 
-      ? 'bg-green-100 text-green-800' 
-      : 'bg-red-100 text-red-800';
+    let statusClass;
+    switch(letter.status) {
+      case 'Diterima':
+        statusClass = 'bg-green-100 text-green-800';
+        break;
+      case 'Dikembalikan':
+        statusClass = 'bg-red-100 text-red-800';
+        break;
+      case 'Menunggu':
+        statusClass = 'bg-yellow-100 text-yellow-800';
+        break;
+      default:
+        statusClass = 'bg-gray-100 text-gray-800';
+    }
     
     return `
       <tr class="hover:bg-gray-50">

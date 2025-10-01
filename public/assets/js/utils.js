@@ -10,7 +10,10 @@ const jenisOptions = [
   'Surat Dinas - Surat ke Pihak Departemen',
   'Surat Dinas - Surat ke Pihak Luar selain Departemen',
   'Surat Dinas - Surat ke Personal',
-  'Keputusan Direksi'
+  'Keputusan Direksi',
+  'Rincian Tagihan Tiket.com',
+  'Surat Permohonan Cuti',
+  'Biaya Rapat & Akomodasi',
 ];
 
 const kategoriOptions = ['Surat Elektronik', 'Surat Manual', 'Surat Masuk', 'LHA'];
@@ -38,8 +41,20 @@ function fillOptions(sel, arr){
 }
 
 function badge(status){
-  const isOk = status === 'Diterima';
-  const cls = isOk ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700';
+  let cls;
+  switch(status) {
+    case 'Diterima':
+      cls = 'bg-green-100 text-green-700';
+      break;
+    case 'Dikembalikan':
+      cls = 'bg-red-100 text-red-700';
+      break;
+    case 'Menunggu':
+      cls = 'bg-yellow-100 text-yellow-700';
+      break;
+    default:
+      cls = 'bg-gray-100 text-gray-700';
+  }
   return `<span class="px-2 py-1 rounded text-xs ${cls}">${status}</span>`;
 }
 
@@ -77,19 +92,32 @@ function resizeCanvas(canvas) {
   canvas.getContext("2d").scale(ratio, ratio);
 }
 
+// helper function
+function formatDate(timestamp) {
+  if (!timestamp) return '-';
+  const date = new Date(timestamp);
+  return date.toLocaleString('id-ID', {
+    day: '2-digit',
+    month: '2-digit', // kalau mau angka, ganti '2-digit'
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+  });
+}
+
 function renderRows(arr, role) {
   return arr.map(doc => {
     return `
       <tr class="align-top">
         <td class="border p-2 align-middle"><div class="truncate" title="${escapeHtml(doc.nomor)}">${escapeHtml(doc.nomor)}</div></td>
-        <td class="border p-2 align-middle text-gray-600">${escapeHtml(doc.tanggal_pengiriman || '-')}</td>
+        <td class="border p-2 align-middle text-center text-gray-600">${escapeHtml(doc.tanggal_pengiriman || '-')}</td>
         <td class="border p-2 align-middle"><div class="truncate" title="${escapeHtml(doc.perihal || '-')}" >${escapeHtml(doc.perihal || '-')}</div></td>
-        <td class="border p-2 align-middle">${escapeHtml(doc.jenis_surat || '-')}</td>
-        <td class="border p-2 align-middle">${escapeHtml(doc.kategori_surat || '-')}</td>
+        <td class="border p-2 align-middle text-center">${escapeHtml(doc.jenis_surat || '-')}</td>
+        <td class="border p-2 align-middle text-center">${escapeHtml(doc.kategori_surat || '-')}</td>
         <td class="border p-2 align-middle"><div class="truncate" title="${escapeHtml(doc.tujuan_surat || '-')}" >${escapeHtml(doc.tujuan_surat || '-')}</div></td>
-        <td class="border p-2 align-middle">${escapeHtml(doc.penerima || '-')}</td>
+        <td class="border p-2 align-middle text-center">${escapeHtml(doc.penerima || '-')}</td>
         <td class="border p-2 align-middle text-center" data-signature="${doc.bukti_ttd_url || ''}">${doc.bukti_ttd_url ? `<img data-filename="${doc.bukti_ttd_url}" alt="ttd" class="h-10 w-20 inline-block object-contain border rounded signature-img" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyMCAyMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEwIDJDNS41ODEgMiAyIDUuNTgxIDIgMTBTNS41ODEgMTggMTAgMThTMTggMTQuNDE5IDE4IDEwUzE0LjQxOSAyIDEwIDJaTTEzLjUgMTBDMTMuNSA4LjYxOSAxMi4zODEgNy41IDExIDcuNUg5QzcuNjE5IDcuNSA2LjUgOC42MTkgNi41IDEwUzcuNjE5IDEyLjUgOSAxMi41SDExQzEyLjM4MSAxMi41IDEzLjUgMTEuMzgxIDEzLjUgMTBaIiBmaWxsPSIjOTk5Ii8+Cjwvc3ZnPgo=">` : '-'}</td>
-        <td class="border p-2 align-middle text-gray-600">${escapeHtml(doc.tanggal_diterima || '-')}</td>
+        <td class="border p-2 align-middle text-gray-600 text-center"> ${formatDate(doc.tanggal_diterima)} </td>
         <td class="border p-2 align-middle text-center">${badge(doc.status)}</td>
         <td class="border px-4 py-2 align-middle text-center">
           ${ role==='admin' ? `
@@ -101,6 +129,11 @@ function renderRows(arr, role) {
             <div class="inline-flex items-center justify-center gap-2 whitespace-nowrap">
               ${doc.status === 'Diterima' ? `
                 <span class="text-xs text-gray-500">Sudah diterima</span>
+              ` : doc.status === 'Menunggu' ? `
+                <button onclick="openApproveModal('${doc.id}')" 
+class="bg-[#1DC82B] text-white px-2 py-1 text-sm rounded hover:opacity-90">
+Approve
+</button>
               ` : `
                 <button onclick="openApproveModal('${doc.id}')" 
 class="bg-[#1DC82B] text-white px-2 py-1 text-sm rounded hover:opacity-90">
