@@ -16,7 +16,7 @@ const jenisOptions = [
   'Biaya Rapat & Akomodasi',
 ];
 
-const kategoriOptions = ['Surat Elektronik', 'Surat Manual', 'Surat Masuk', 'LHA'];
+const kategoriOptions = ['Surat Elektronik', 'Surat Manual', 'Surat Masuk', 'LHA', 'Tagihan', 'Cuti'];
 
 const tujuanOptions = [
   'Divisi Satuan Pengawasan Intern',
