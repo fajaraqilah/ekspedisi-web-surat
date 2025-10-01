@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     if (adminSigPad) adminSigPad.clear();
     signatureData = null;
     // Set default date for required field, leave optional field empty
-    fTanggal.valueAsDate = new Date();
+    fTanggal.value = '';
     fTanggalDiterima.value = '';
   }
 
@@ -151,11 +151,7 @@ document.addEventListener('DOMContentLoaded', async function() {
           alert('Perihal harus diisi!');
           return;
         }
-        if (!fTanggal.value) {
-          alert('Tanggal pengiriman harus diisi!');
-          return;
-        }
-
+        
  const letterData = {
   id: id,
   nomor: fNomor.value?.trim() || null,
@@ -166,7 +162,7 @@ document.addEventListener('DOMContentLoaded', async function() {
   tujuan_surat: fTujuan.value || null,
   penerima: fPenerima.value?.trim() || null,
   bukti_ttd_url: null,
-  tanggal_diterima: fTanggalDiterima.value || null,
+  tanggal_diterima: fTanggalDiterima.value ? new Date(fTanggalDiterima.value).toISOString() : null,
   status: fStatus.value || "Menunggu"
 };
 
@@ -405,7 +401,21 @@ if (result.error) {
     fId.value = doc.id;
     fNomor.value = doc.nomor || '';
     fTanggal.value = doc.tanggal_pengiriman || '';
-    fTanggalDiterima.value = doc.tanggal_diterima || '';
+    
+    // Format datetime for datetime-local input
+    if (doc.tanggal_diterima) {
+      const date = new Date(doc.tanggal_diterima);
+      // Format as YYYY-MM-DDTHH:MM for datetime-local input
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      const hours = String(date.getHours()).padStart(2, '0');
+      const minutes = String(date.getMinutes()).padStart(2, '0');
+      fTanggalDiterima.value = `${year}-${month}-${day}T${hours}:${minutes}`;
+    } else {
+      fTanggalDiterima.value = '';
+    }
+    
     fPerihal.value = doc.perihal || '';
     fJenis.value = doc.jenis_surat || jenisOptions[0];
     fKategori.value = doc.kategori_surat || kategoriOptions[0];

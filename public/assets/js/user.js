@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', async function() {
       const updates = {
         penerima: nama,
         bukti_ttd_url: signatureFileName, // Store filename, not URL
-        tanggal_diterima: new Date().toISOString().slice(0, 10),
+        tanggal_diterima: new Date().toISOString(), // Full timestamp with timezone
         status: 'Diterima'
       };
 

@@ -107,12 +107,15 @@ function resizeCanvas(canvas) {
 function formatDate(timestamp) {
   if (!timestamp) return '-';
   const date = new Date(timestamp);
-  return date.toLocaleString('id-ID', {
+
+  // Use local timezone formatting to match device time
+  return date.toLocaleString(undefined, {
     day: '2-digit',
-    month: '2-digit', // kalau mau angka, ganti '2-digit'
+    month: '2-digit',
     year: 'numeric',
     hour: '2-digit',
-    minute: '2-digit'
+    minute: '2-digit',
+    hour12: false // Use 24-hour format
   });
 }
 
@@ -122,7 +125,7 @@ function renderRows(arr, role) {
       <tr class="align-top">
         <td class="border p-2 align-middle"><div class="truncate" title="${escapeHtml(doc.nomor)}">${escapeHtml(doc.nomor)}</div></td>
         <td class="border p-2 align-middle text-center text-gray-600">${escapeHtml(doc.tanggal_pengiriman || '-')}</td>
-        <td class="border p-2 align-middle"><div class="truncate" title="${escapeHtml(doc.perihal || '-')}" >${escapeHtml(doc.perihal || '-')}</div></td>
+        <td class="border p-2 align-middle"><div class="whitespace-normal break-normal"${escapeHtml(doc.perihal || '-')}" >${escapeHtml(doc.perihal || '-')}</div></td>
         <td class="border p-2 align-middle text-center">${escapeHtml(doc.jenis_surat || '-')}</td>
         <td class="border p-2 align-middle text-center">${escapeHtml(doc.kategori_surat || '-')}</td>
         <td class="border p-2 align-middle"><div class="truncate" title="${escapeHtml(doc.tujuan_surat || '-')}" >${escapeHtml(doc.tujuan_surat || '-')}</div></td>
