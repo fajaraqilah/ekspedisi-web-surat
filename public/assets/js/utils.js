@@ -14,7 +14,7 @@ const jenisOptions = [
   'Rincian Tagihan Tiket.com',
   'Surat Permohonan Cuti',
   'Biaya Rapat & Akomodasi',
-  'Reumbursement Biaya Pengobatan',
+  'Reimbursement Biaya Pengobatan',
   'Undangan Seminar'
 ];
 
