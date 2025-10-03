@@ -44,7 +44,8 @@ const tujuanOptions = [
   'Divisi Pengelolaan Anak Perusahaan & Kinerja Korporasi',
   'Divisi Pengembangan SDM & Budaya Perusahaan',
   'Divisi Operasional SDM & General Affair',
-  'Divisi Pengadaan & Teknologi Informasi'
+  'Divisi Pengadaan & Teknologi Informasi',
+  'Dewan Komisaris',
 ];
 
 function fillOptions(sel, arr){
