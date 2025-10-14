@@ -15,7 +15,9 @@ const jenisOptions = [
   'Surat Permohonan Cuti',
   'Biaya Rapat & Akomodasi',
   'Reimbursement Biaya Pengobatan',
-  'Undangan Seminar'
+  'Undangan Seminar',
+  'Surat Keterangan Sakit',
+  'Surat Izin'
 ];
 
 const kategoriOptions = [
