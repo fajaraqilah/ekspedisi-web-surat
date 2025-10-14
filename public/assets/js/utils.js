@@ -26,7 +26,9 @@ const kategoriOptions = [
   'Tagihan', 
   'Cuti', 
   'Reimbursement', 
-  'Undangan'
+  'Undangan',
+  'Izin',
+  'Sakit'
 ];
 
 const tujuanOptions = [
@@ -46,6 +48,13 @@ const tujuanOptions = [
   'Divisi Operasional SDM & General Affair',
   'Divisi Pengadaan & Teknologi Informasi',
   'Dewan Komisaris',
+  'Direktur Utama',
+  'Direktur Keuangan',
+  'Direktur Kelembagaan',
+  'Direktur SDM',
+  'BPK RI',
+  'BPKP',
+  'KPK RI'
 ];
 
 function fillOptions(sel, arr){
