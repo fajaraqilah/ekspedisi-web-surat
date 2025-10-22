@@ -13,27 +13,165 @@ document.addEventListener('DOMContentLoaded', async function() {
   const userSignCanvas = document.getElementById('user-signature');
   const userSignClear = document.getElementById('user-sign-clear');
 
-  async function renderUser(){
-    const q = userSearch.value?.trim().toLowerCase() || '';
-    let data = await getLetters();
-    if (q) {
-      data = data.filter(d => [d.nomor,d.perihal,d.penerima,d.tujuan_surat,d.tanggal_pengiriman].some(x => (x||'').toLowerCase().includes(q)));
-    }
-    // data is already sorted by Supabase query
-    userTbody.innerHTML = renderRows(data, 'user');
+  // Pagination elements
+  const paginationContainer = document.getElementById('pagination-container');
+  const prevPageBtn = document.getElementById('prev-page');
+  const nextPageBtn = document.getElementById('next-page');
+  const prevPageMobileBtn = document.getElementById('prev-page-mobile');
+  const nextPageMobileBtn = document.getElementById('next-page-mobile');
+  const pageInfoStart = document.getElementById('page-info-start');
+  const pageInfoEnd = document.getElementById('page-info-end');
+  const pageInfoTotal = document.getElementById('page-info-total');
+  const pageNumbersContainer = document.getElementById('page-numbers');
+  
+  let currentPage = 1;
+  const rowsPerPage = 20;
+  let allData = [];
+  let filteredData = [];
+
+  // Function to update pagination controls
+  function updatePagination() {
+    const totalPages = Math.ceil(filteredData.length / rowsPerPage);
     
-    // Load signed URLs for signature images
-    await loadSignatureImages();
+    // Update page info text
+    const start = filteredData.length > 0 ? (currentPage - 1) * rowsPerPage + 1 : 0;
+    const end = Math.min(currentPage * rowsPerPage, filteredData.length);
+    
+    pageInfoStart.textContent = start;
+    pageInfoEnd.textContent = end;
+    pageInfoTotal.textContent = filteredData.length;
+    
+    // Update button states
+    prevPageBtn.disabled = currentPage === 1;
+    nextPageBtn.disabled = currentPage === totalPages || totalPages === 0;
+    prevPageMobileBtn.disabled = currentPage === 1;
+    nextPageMobileBtn.disabled = currentPage === totalPages || totalPages === 0;
+    
+    // Generate page numbers
+    pageNumbersContainer.innerHTML = '';
+    
+    // Show maximum of 5 page buttons
+    let startPage = Math.max(1, currentPage - 2);
+    let endPage = Math.min(totalPages, startPage + 4);
+    
+    if (endPage - startPage < 4) {
+      startPage = Math.max(1, endPage - 4);
+    }
+    
+    for (let i = startPage; i <= endPage; i++) {
+      const pageBtn = document.createElement('button');
+      pageBtn.className = `relative inline-flex items-center px-4 py-2 text-sm font-semibold ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0 ${i === currentPage ? 'bg-blue-600 text-white' : 'bg-white text-gray-700'}`;
+      pageBtn.textContent = i;
+      pageBtn.addEventListener('click', () => {
+        currentPage = i;
+        renderUser();
+      });
+      pageNumbersContainer.appendChild(pageBtn);
+    }
+  }
+  
+  async function renderUser(){
+    try {
+      const q = userSearch.value?.trim().toLowerCase() || '';
+      
+      // Only fetch all data if we haven't already
+      if (allData.length === 0) {
+        allData = await getLetters();
+      }
+      
+      // Filter data based on search query
+      if (q) {
+        filteredData = allData.filter(d => [d.nomor,d.perihal,d.penerima,d.tujuan_surat,d.tanggal_pengiriman].some(x => (x||'').toLowerCase().includes(q)));
+      } else {
+        filteredData = [...allData];
+      }
+      
+      // Calculate pagination
+      const totalPages = Math.ceil(filteredData.length / rowsPerPage);
+      
+      // Ensure current page is within bounds
+      if (currentPage > totalPages && totalPages > 0) {
+        currentPage = totalPages;
+      } else if (currentPage < 1) {
+        currentPage = 1;
+      }
+      
+      // Get data for current page
+      const startIndex = (currentPage - 1) * rowsPerPage;
+      const endIndex = startIndex + rowsPerPage;
+      const pageData = filteredData.slice(startIndex, endIndex);
+      
+      // data is already sorted by Supabase query
+      userTbody.innerHTML = renderRows(pageData, 'user');
+      
+      // Update pagination controls
+      updatePagination();
+      
+      // Load signed URLs for signature images
+      await loadSignatureImages();
+    } catch (error) {
+      console.error('Error in renderUser:', error);
+      userTbody.innerHTML = '<tr><td colspan="11" class="text-center text-red-500 p-4">Error loading data: ' + error.message + '</td></tr>';
+      
+      // Update pagination controls even on error
+      updatePagination();
+    }
   }
 
   // Initial render
-  await renderUser();
+  try {
+    await renderUser();
+  } catch (error) {
+    console.error('Initial render failed:', error);
+    userTbody.innerHTML = '<tr><td colspan="11" class="text-center text-red-500 p-4">Failed to load data. Please refresh the page.</td></tr>';
+  }
 
   if (userSearch) {
     userSearch.addEventListener('input', () => {
+      // Reset to first page when searching
+      currentPage = 1;
       // Debounce search for better performance
       clearTimeout(userSearch.timeout);
       userSearch.timeout = setTimeout(renderUser, 300);
+    });
+  }
+
+  // Pagination event listeners
+  if (prevPageBtn) {
+    prevPageBtn.addEventListener('click', () => {
+      if (currentPage > 1) {
+        currentPage--;
+        renderUser();
+      }
+    });
+  }
+
+  if (nextPageBtn) {
+    nextPageBtn.addEventListener('click', () => {
+      const totalPages = Math.ceil(filteredData.length / rowsPerPage);
+      if (currentPage < totalPages) {
+        currentPage++;
+        renderUser();
+      }
+    });
+  }
+
+  if (prevPageMobileBtn) {
+    prevPageMobileBtn.addEventListener('click', () => {
+      if (currentPage > 1) {
+        currentPage--;
+        renderUser();
+      }
+    });
+  }
+
+  if (nextPageMobileBtn) {
+    nextPageMobileBtn.addEventListener('click', () => {
+      const totalPages = Math.ceil(filteredData.length / rowsPerPage);
+      if (currentPage < totalPages) {
+        currentPage++;
+        renderUser();
+      }
     });
   }
 
