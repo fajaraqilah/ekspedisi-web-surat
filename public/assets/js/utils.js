@@ -17,7 +17,8 @@ const jenisOptions = [
   'Reimbursement Biaya Pengobatan',
   'Undangan Seminar',
   'Surat Keterangan Sakit',
-  'Surat Izin'
+  'Surat Izin',
+  'Formulir SPBUN',
 ];
 
 const kategoriOptions = [
@@ -30,7 +31,8 @@ const kategoriOptions = [
   'Reimbursement', 
   'Undangan',
   'Izin',
-  'Sakit'
+  'Sakit',
+  'Formulir SPBUN',
 ];
 
 const tujuanOptions = [
