@@ -26,6 +26,11 @@ document.addEventListener('DOMContentLoaded', async function() {
   fillOptions(document.getElementById('f-jenis'), jenisOptions);
   fillOptions(document.getElementById('f-kategori'), kategoriOptions);
   fillOptions(document.getElementById('f-tujuan'), tujuanOptions);
+  
+  // Initialize searchable dropdowns
+  initSearchableDropdown('jenis', jenisOptions);
+  initSearchableDropdown('kategori', kategoriOptions);
+  initSearchableDropdown('tujuan', tujuanOptions);
 
   // Admin elements
   const adminTbody = document.getElementById('admin-tbody');
@@ -61,9 +66,10 @@ document.addEventListener('DOMContentLoaded', async function() {
   const pageInfoEnd = document.getElementById('page-info-end');
   const pageInfoTotal = document.getElementById('page-info-total');
   const pageNumbersContainer = document.getElementById('page-numbers');
+  const rowsPerPageSelect = document.getElementById('rows-per-page');
   
   let currentPage = 1;
-  const rowsPerPage = 20;
+  let rowsPerPage = 20;
   let allData = [];
   let filteredData = [];
 
@@ -76,6 +82,16 @@ document.addEventListener('DOMContentLoaded', async function() {
     // Set default date for required field, leave optional field empty
     fTanggal.value = '';
     fTanggalDiterima.value = '';
+    
+    // Reset searchable dropdowns
+    document.getElementById('jenis-select-input').value = '';
+    document.getElementById('kategori-select-input').value = '';
+    document.getElementById('tujuan-select-input').value = '';
+    
+    // Reset hidden selects
+    fJenis.value = '';
+    fKategori.value = '';
+    fTujuan.value = '';
   }
 
   // Function to update pagination controls
@@ -89,6 +105,11 @@ document.addEventListener('DOMContentLoaded', async function() {
     pageInfoStart.textContent = start;
     pageInfoEnd.textContent = end;
     pageInfoTotal.textContent = filteredData.length;
+    
+    // Update rows per page select to match current value
+    if (rowsPerPageSelect) {
+      rowsPerPageSelect.value = rowsPerPage;
+    }
     
     // Update button states
     prevPageBtn.disabled = currentPage === 1;
@@ -204,6 +225,15 @@ document.addEventListener('DOMContentLoaded', async function() {
     adminSignClear.addEventListener('click', () => {
       if (adminSigPad) adminSigPad.clear();
       signatureData = null;
+    });
+  }
+
+  // Rows per page event listener
+  if (rowsPerPageSelect) {
+    rowsPerPageSelect.addEventListener('change', () => {
+      rowsPerPage = parseInt(rowsPerPageSelect.value);
+      currentPage = 1; // Reset to first page when changing rows per page
+      renderAdmin();
     });
   }
 
@@ -539,9 +569,21 @@ if (result.error) {
     }
     
     fPerihal.value = doc.perihal || '';
+    
+    // Update searchable dropdowns
+    const jenisInput = document.getElementById('jenis-select-input');
+    const kategoriInput = document.getElementById('kategori-select-input');
+    const tujuanInput = document.getElementById('tujuan-select-input');
+    
+    jenisInput.value = doc.jenis_surat || jenisOptions[0];
+    kategoriInput.value = doc.kategori_surat || kategoriOptions[0];
+    tujuanInput.value = doc.tujuan_surat || tujuanOptions[0];
+    
+    // Update hidden selects
     fJenis.value = doc.jenis_surat || jenisOptions[0];
     fKategori.value = doc.kategori_surat || kategoriOptions[0];
     fTujuan.value = doc.tujuan_surat || tujuanOptions[0];
+    
     fPenerima.value = doc.penerima || '';
     fStatus.value = doc.status || 'Menunggu';
     
@@ -624,5 +666,110 @@ if (result.error) {
     document.getElementById('btnToUser').addEventListener('click', () => {
       window.location.href = 'index.html';
     });
+  }
+  
+  // Initialize searchable dropdown
+  function initSearchableDropdown(type, options) {
+    const container = document.getElementById(`${type}-select-container`);
+    const display = document.getElementById(`${type}-select-display`);
+    const input = document.getElementById(`${type}-select-input`);
+    const dropdown = document.getElementById(`${type}-select-dropdown`);
+    const searchInput = document.getElementById(`${type}-select-search`);
+    const optionsContainer = document.getElementById(`${type}-select-options`);
+    const hiddenSelect = document.getElementById(`f-${type}`);
+    
+    // Populate options
+    function populateOptions(filteredOptions) {
+      optionsContainer.innerHTML = '';
+      filteredOptions.forEach(option => {
+        const optionElement = document.createElement('div');
+        optionElement.className = 'custom-select-option';
+        optionElement.textContent = option;
+        optionElement.addEventListener('click', () => {
+          input.value = option;
+          hiddenSelect.value = option;
+          dropdown.classList.remove('active');
+          
+          // Highlight selected option
+          optionsContainer.querySelectorAll('.custom-select-option').forEach(opt => {
+            opt.classList.remove('selected');
+          });
+          optionElement.classList.add('selected');
+        });
+        optionsContainer.appendChild(optionElement);
+      });
+    }
+    
+    // Filter options based on search input
+    function filterOptions(searchTerm) {
+      const filtered = options.filter(option => 
+        option.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      populateOptions(filtered);
+    }
+    
+    // Initialize with all options
+    populateOptions(options);
+    
+    // Toggle dropdown visibility
+    input.addEventListener('click', (e) => {
+      e.stopPropagation();
+      dropdown.classList.toggle('active');
+      
+      // Position dropdown above input if it would go off screen
+      const rect = dropdown.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+      if (rect.bottom > viewportHeight) {
+        dropdown.style.top = 'auto';
+        dropdown.style.bottom = '100%';
+      } else {
+        dropdown.style.top = '100%';
+        dropdown.style.bottom = 'auto';
+      }
+    });
+    
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!container.contains(e.target)) {
+        dropdown.classList.remove('active');
+      }
+    });
+    
+    // Handle search input
+    searchInput.addEventListener('input', () => {
+      filterOptions(searchInput.value);
+    });
+    
+    // Handle keyboard navigation
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        dropdown.classList.remove('active');
+      }
+    });
+    
+    searchInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        dropdown.classList.remove('active');
+      }
+      
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        const firstOption = optionsContainer.querySelector('.custom-select-option');
+        if (firstOption) {
+          firstOption.click();
+        }
+      }
+    });
+    
+    // Set initial value if exists
+    if (hiddenSelect.value) {
+      input.value = hiddenSelect.value;
+      const optionElements = optionsContainer.querySelectorAll('.custom-select-option');
+      optionElements.forEach(optionElement => {
+        if (optionElement.textContent === hiddenSelect.value) {
+          optionElement.classList.add('selected');
+        }
+      });
+    }
   }
 });

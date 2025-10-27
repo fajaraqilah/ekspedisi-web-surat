@@ -23,9 +23,10 @@ document.addEventListener('DOMContentLoaded', async function() {
   const pageInfoEnd = document.getElementById('page-info-end');
   const pageInfoTotal = document.getElementById('page-info-total');
   const pageNumbersContainer = document.getElementById('page-numbers');
+  const rowsPerPageSelect = document.getElementById('rows-per-page');
   
   let currentPage = 1;
-  const rowsPerPage = 20;
+  let rowsPerPage = 20;
   let allData = [];
   let filteredData = [];
 
@@ -40,6 +41,11 @@ document.addEventListener('DOMContentLoaded', async function() {
     pageInfoStart.textContent = start;
     pageInfoEnd.textContent = end;
     pageInfoTotal.textContent = filteredData.length;
+    
+    // Update rows per page select to match current value
+    if (rowsPerPageSelect) {
+      rowsPerPageSelect.value = rowsPerPage;
+    }
     
     // Update button states
     prevPageBtn.disabled = currentPage === 1;
@@ -133,6 +139,15 @@ document.addEventListener('DOMContentLoaded', async function() {
       // Debounce search for better performance
       clearTimeout(userSearch.timeout);
       userSearch.timeout = setTimeout(renderUser, 300);
+    });
+  }
+
+  // Rows per page event listener
+  if (rowsPerPageSelect) {
+    rowsPerPageSelect.addEventListener('change', () => {
+      rowsPerPage = parseInt(rowsPerPageSelect.value);
+      currentPage = 1; // Reset to first page when changing rows per page
+      renderUser();
     });
   }
 
