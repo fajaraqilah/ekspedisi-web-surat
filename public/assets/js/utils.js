@@ -19,6 +19,7 @@ const jenisOptions = [
   'Surat Keterangan Sakit',
   'Surat Izin',
   'Formulir SPBUN',
+  'Sasaran Anti Penyuapan'
 ];
 
 const kategoriOptions = [
@@ -33,6 +34,7 @@ const kategoriOptions = [
   'Izin',
   'Sakit',
   'Formulir SPBUN',
+  'Sasaran Anti Penyuapan'
 ];
 
 const tujuanOptions = [
