@@ -51,6 +51,7 @@ const tujuanOptions = [
   'Divisi Pengembangan SDM & Budaya Perusahaan',
   'Divisi Operasional SDM & General Affair',
   'Divisi Pengadaan & Teknologi Informasi',
+  'Divisi Manajemen Risiko dan Sustainability',
   'Dewan Komisaris',
   'Direktur Utama',
   'Direktur Keuangan',
