@@ -20,7 +20,7 @@ const jenisOptions = [
   'Surat Izin',
   'Formulir SPBUN',
   'Sasaran Anti Penyuapan',
-  'Surat Item SPD'
+  'SPD'
 ];
 
 const kategoriOptions = [
@@ -35,7 +35,8 @@ const kategoriOptions = [
   'Izin',
   'Sakit',
   'Formulir SPBUN',
-  'Sasaran Anti Penyuapan'
+  'Sasaran Anti Penyuapan',
+  'SPD'
 ];
 
 const tujuanOptions = [
