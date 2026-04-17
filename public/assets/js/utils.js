@@ -52,6 +52,7 @@ const tujuanOptions = [
   'Divisi Manajemen Aset II',
   'Divisi Pemasaran',
   'Divisi Akuntansi & Perpajakan',
+  'Direktur Pemasaran dan Aset Manajemen',
   'Divisi Perbendaharaan Anggaran & Keuangan',
   'Divisi Pengelolaan Anak Perusahaan & Kinerja Korporasi',
   'Divisi Pengembangan SDM & Budaya Perusahaan',
