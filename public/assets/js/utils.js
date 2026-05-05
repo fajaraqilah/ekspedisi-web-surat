@@ -21,7 +21,8 @@ const jenisOptions = [
   'Formulir SPBUN',
   'Sasaran Anti Penyuapan',
   'SPD',
-  'Risalah Rapat'
+  'Risalah Rapat',
+  'BA serah terima'
 ];
 
 const kategoriOptions = [
@@ -38,7 +39,8 @@ const kategoriOptions = [
   'Formulir SPBUN',
   'Sasaran Anti Penyuapan',
   'SPD',
-  'Risalah Rapat'
+  'Risalah Rapat',
+  'BA serah terima'
 ];
 
 const tujuanOptions = [
