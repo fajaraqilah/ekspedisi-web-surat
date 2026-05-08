@@ -66,6 +66,7 @@ const tujuanOptions = [
   'Direktur Keuangan',
   'Direktur Kelembagaan',
   'Direktur SDM',
+  'Direktur Operasional',
   'BPK RI',
   'BPKP',
   'KPK RI'
