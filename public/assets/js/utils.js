@@ -69,6 +69,7 @@ const tujuanOptions = [
   'Direktur Operasional',
   'BPK RI',
   'BPKP',
+  'SPI PTPN III (Persero)',
   'KPK RI'
 ];
 
