@@ -22,7 +22,8 @@ const jenisOptions = [
   'Sasaran Anti Penyuapan',
   'SPD',
   'Risalah Rapat',
-  'BA serah terima'
+  'BA serah terima',
+  'BA MTL'
 ];
 
 const kategoriOptions = [
@@ -40,7 +41,8 @@ const kategoriOptions = [
   'Sasaran Anti Penyuapan',
   'SPD',
   'Risalah Rapat',
-  'BA serah terima'
+  'BA serah terima',
+  'BA MTL'
 ];
 
 const tujuanOptions = [
@@ -70,7 +72,8 @@ const tujuanOptions = [
   'BPK RI',
   'BPKP',
   'SPI PTPN III (Persero)',
-  'KPK RI'
+  'KPK RI',
+  'PMN'
 ];
 
 function fillOptions(sel, arr){
